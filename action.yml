@@ -1,11 +1,20 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'kubernetes-auth-action'
+description: 'Authenticate to kubernetes API with kubectl'
+author: 'Smartly.io'
 inputs:
-  milliseconds: # change this
+  kubernetesClusterDomain:
+    description: 'Fully qualified domain name of the cluster.'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  kubernetesServer:
+    description: 'Kubernetes server. If this is not specified, the value used will be https://<kubernetesClusterDomain>:6443. Specify this paramater if a different server is required.'
+    required: false
+  kubernetesContext:
+    description: 'Kubernetes context name. Usually the name of the cluster, but can be random.'
+    required: true
+  kubernetesNamespace:
+    description: 'Kubernetes namespace name. Should be similar to service name.'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
+  post: 'dist/index.js'

@@ -1,19 +1,30 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {configureKube, deconfigureKube} from './kube'
+import {isPost, Context, getContext} from './context'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const context: Context = await getContext()
+    core.info(
+      `Configuring access to kubernetes cluster ${context.kubernetesClusterDomain}`
+    )
+    await configureKube(context)
   } catch (error) {
     core.setFailed(error.message)
   }
 }
 
-run()
+async function post(): Promise<void> {
+  try {
+    core.info(`Deconfiguring kubernetes client`)
+    await deconfigureKube()
+  } catch (error) {
+    core.setFailed(error.message)
+  }
+}
+
+if (!isPost) {
+  run()
+} else {
+  post()
+}
