@@ -5,7 +5,7 @@ import {isPost, Context, getContext, loadState} from './context';
 async function run(): Promise<void> {
   try {
     const context: Context = getContext();
-
+    core.info(`Configuring access to kubernetes cluster ${context.kubernetesClusterDomain}`);
     await configureKube(context);
   } catch (error) {
     core.setFailed(error.message)
@@ -14,6 +14,7 @@ async function run(): Promise<void> {
 
 async function post(): Promise<void> {
   try {
+    core.info(`Deconfiguring kubernetes client`);
     await deconfigureKube()
   } catch (error) {
     core.setFailed(error.message);
