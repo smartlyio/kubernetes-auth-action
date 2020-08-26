@@ -1,9 +1,7 @@
 import * as exec from '@actions/exec'
 import {Context} from './context'
 
-export async function configureKube(
-  context: Context
-): Promise<void> {
+export async function configureKube(context: Context): Promise<void> {
   await exec.exec('kubectl config set-cluster', [
     context.kubernetesContext,
     `--server=${context.kubernetesServer}`,
@@ -22,16 +20,16 @@ export async function configureKube(
 
 export async function deconfigureKube(): Promise<void> {
   // Unset ALL configuration!
-  const keys: string[] = ['clusters', 'contexts', 'current-context', 'users'];
-  const errors: string[] = [];
+  const keys: string[] = ['clusters', 'contexts', 'current-context', 'users']
+  const errors: string[] = []
   for (const key of keys) {
     try {
       await exec.exec(`kubectl config unset`, [key])
     } catch (e) {
-      errors.push(e.message);
+      errors.push(e.message)
     }
   }
   if (errors.length > 0) {
-    throw new Error(errors.join('\n'));
+    throw new Error(errors.join('\n'))
   }
 }
