@@ -1,10 +1,10 @@
 import * as core from '@actions/core'
 import {configureKube, deconfigureKube} from './kube'
-import {isPost, Context, getContext, loadState} from './context';
+import {isPost, Context, getContext} from './context'
 
 async function run(): Promise<void> {
   try {
-    const context: Context = getContext();
+    const context: Context = await getContext()
     core.info(`Configuring access to kubernetes cluster ${context.kubernetesClusterDomain}`);
     await configureKube(context);
   } catch (error) {
