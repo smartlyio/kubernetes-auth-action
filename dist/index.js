@@ -116,7 +116,7 @@ function post() {
         }
     });
 }
-if (!context_1.isPost) {
+if (!context_1.isPost()) {
     run();
 }
 else {
