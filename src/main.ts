@@ -23,7 +23,7 @@ async function post(): Promise<void> {
   }
 }
 
-if (!isPost) {
+if (!isPost()) {
   run()
 } else {
   post()
