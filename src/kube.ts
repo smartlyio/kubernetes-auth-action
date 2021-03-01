@@ -2,6 +2,11 @@ import * as exec from '@actions/exec'
 import {Context} from './context'
 
 export async function configureKube(context: Context): Promise<void> {
+  if (!process.env.KUBERNETES_AUTH_TOKEN) {
+    throw new Error(
+      'No KUBERNETES_AUTH_TOKEN value provided in the environment'
+    )
+  }
   await exec.exec('kubectl config set-cluster', [
     context.kubernetesContext,
     `--server=${context.kubernetesServer}`,

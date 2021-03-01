@@ -18,6 +18,7 @@ afterEach(() => {
 
 describe('test kubernetes configuration', () => {
   test('It configures kube', async () => {
+    process.env['KUBERNETES_AUTH_TOKEN'] = 'token'
     const context: Context = {
       kubernetesServer: 'https://kube.example.com:6443',
       kubernetesContext: 'context',
@@ -36,6 +37,24 @@ describe('test kubernetes configuration', () => {
     expect(calls[2][0]).toEqual(
       '/bin/bash -c "kubectl config set-credentials deploy --token=$KUBERNETES_AUTH_TOKEN"'
     )
+  })
+
+  test('It throws an error if no token is available', async () => {
+    process.env['KUBERNETES_AUTH_TOKEN'] = ''
+    const context: Context = {
+      kubernetesServer: 'https://kube.example.com:6443',
+      kubernetesContext: 'context',
+      kubernetesClusterDomain: 'kube.example.com',
+      kubernetesNamespace: 'application',
+      isPost: false
+    }
+
+    await expect(configureKube(context)).rejects.toThrowError(
+      /No KUBERNETES_AUTH_TOKEN value/
+    )
+
+    const mockExec = mocked(exec)
+    expect(mockExec.mock.calls.length).toBe(0)
   })
 
   test('It deconfigures kube', async () => {
