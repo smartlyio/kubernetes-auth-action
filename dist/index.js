@@ -125,6 +125,9 @@ exports.deconfigureKube = exports.configureKube = void 0;
 const exec = __importStar(__webpack_require__(514));
 function configureKube(context) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (!process.env.KUBERNETES_AUTH_TOKEN) {
+            throw new Error('No KUBERNETES_AUTH_TOKEN value provided in the environment');
+        }
         yield exec.exec('kubectl config set-cluster', [
             context.kubernetesContext,
             `--server=${context.kubernetesServer}`,
