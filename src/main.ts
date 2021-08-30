@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
+import {Context, getContext, isPost} from './context'
 import {configureKube, deconfigureKube} from './kube'
-import {isPost, Context, getContext} from './context'
 
 async function run(): Promise<void> {
   try {
