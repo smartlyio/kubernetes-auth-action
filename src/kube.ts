@@ -31,7 +31,7 @@ export async function deconfigureKube(): Promise<void> {
     try {
       await exec.exec(`kubectl config unset`, [key])
     } catch (e) {
-      errors.push(e.message)
+      errors.push(`${e}`)
     }
   }
   if (errors.length > 0) {

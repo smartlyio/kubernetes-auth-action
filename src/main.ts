@@ -10,7 +10,7 @@ async function run(): Promise<void> {
     )
     await configureKube(context)
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(`${error}`)
   }
 }
 
@@ -19,7 +19,7 @@ async function post(): Promise<void> {
     core.info(`Deconfiguring kubernetes client`)
     await deconfigureKube()
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(`${error}`)
   }
 }
 
