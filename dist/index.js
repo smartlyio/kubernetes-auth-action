@@ -152,7 +152,7 @@ function deconfigureKube() {
                 yield exec.exec(`kubectl config unset`, [key]);
             }
             catch (e) {
-                errors.push(e.message);
+                errors.push(`${e}`);
             }
         }
         if (errors.length > 0) {
@@ -204,12 +204,12 @@ const kube_1 = __nccwpck_require__(219);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const context = yield context_1.getContext();
+            const context = yield (0, context_1.getContext)();
             core.info(`Configuring access to kubernetes cluster ${context.kubernetesClusterDomain}`);
-            yield kube_1.configureKube(context);
+            yield (0, kube_1.configureKube)(context);
         }
         catch (error) {
-            core.setFailed(error.message);
+            core.setFailed(`${error}`);
         }
     });
 }
@@ -217,14 +217,14 @@ function post() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             core.info(`Deconfiguring kubernetes client`);
-            yield kube_1.deconfigureKube();
+            yield (0, kube_1.deconfigureKube)();
         }
         catch (error) {
-            core.setFailed(error.message);
+            core.setFailed(`${error}`);
         }
     });
 }
-if (!context_1.isPost()) {
+if (!(0, context_1.isPost)()) {
     run();
 }
 else {
