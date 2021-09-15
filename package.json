@@ -1,6 +1,6 @@
 {
   "name": "kubernetes-auth-action",
-  "version": "0.0.0",
+  "version": "1.0.2",
   "private": true,
   "description": "Authenticate to kubernetes API with kubectl",
   "main": "lib/main.js",
@@ -11,16 +11,18 @@
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "all": "npm run build && npm run format && npm run lint && npm run package && npm test",
+    "version": "npm run build && npm run package && git add -- dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/smartlyio/kubernetes-auth-action.git"
   },
   "keywords": [
     "actions",
-    "node",
-    "setup"
+    "kubernetes",
+    "auth",
+    "authentication"
   ],
   "author": "",
   "license": "MIT",
