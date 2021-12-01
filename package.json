@@ -1,6 +1,6 @@
 {
   "name": "kubernetes-auth-action",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "private": true,
   "description": "Authenticate to kubernetes API with kubectl",
   "main": "lib/main.js",
