@@ -60,3 +60,4 @@ jobs:
         kubernetesServer: testServer
         kubernetesContext: testContext
         kubernetesNamespace: testNamespace
+        kubernetesClusterDomain: cluster.local

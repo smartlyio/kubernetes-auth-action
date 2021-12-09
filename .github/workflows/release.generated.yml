@@ -60,6 +60,7 @@ jobs:
         kubernetesServer: testServer
         kubernetesContext: testContext
         kubernetesNamespace: testNamespace
+        kubernetesClusterDomain: cluster.local
 
   release:
     runs-on: ubuntu-18.04
