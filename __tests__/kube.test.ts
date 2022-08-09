@@ -1,5 +1,5 @@
 import {exec} from '@actions/exec'
-import {mocked} from 'ts-jest/utils'
+import {mocked} from 'jest-mock'
 import {Context} from '../src/context'
 import {configureKube, deconfigureKube} from '../src/kube'
 
