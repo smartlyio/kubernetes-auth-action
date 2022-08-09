@@ -1,5 +1,5 @@
 import {Context, isPost, getContext, loadState} from '../src/context'
-import {mocked} from 'ts-jest/utils'
+import {mocked} from 'jest-mock'
 import {getInput, saveState, getState} from '@actions/core'
 
 jest.mock('@actions/core', () => ({
