@@ -7,22 +7,18 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
-    - name: Set Node.js 16.x
+    - name: Set Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 16.x
+        node-version-file: .node-version
     - name: "Install"
-      run: |
-        npm install
+      run: npm install
     - name: "Prettier"
-      run: |
-        npm run format-check
+      run: npm run format-check
     - name: "Lint"
-      run: |
-        npm run lint
+      run: npm run lint
     - name: "Test"
-      run: |
-        npm run test
+      run: npm run test
     - name: "build"
       run: |
         npm run build
@@ -32,10 +28,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
-    - name: Set Node.js 16.x
+    - name: Set Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 16.x
+        node-version-file: .node-version
     - name: "Build action for test"
       run: |
         npm install
