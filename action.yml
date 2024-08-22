@@ -15,6 +15,6 @@ inputs:
     description: 'Kubernetes namespace name. Should be similar to service name.'
     required: true
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
   post: 'dist/index.js'
