@@ -1,39 +1,24 @@
-# IMPORTANT NOTE/WARNING!
-# Do not make changes to this file, your changes will be overwritten.
-#
-# This file is automagically generated from:
-# - .github/templates/release.yml.erb
-# - Templates contained in the smartlyio/github-actions-templates repository
-#
-# This file can be updated by editing the template file, and running `devbox render workflows`
+name: Build
 
-name: Build and release the action
-
-on:
-  push:
-    branches: [master]
+on: workflow_call
 
 jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
-    - name: Set Node.js 16.x
+    - name: Set Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 16.x
+        node-version-file: .node-version
     - name: "Install"
-      run: |
-        npm install
+      run: npm install
     - name: "Prettier"
-      run: |
-        npm run format-check
+      run: npm run format-check
     - name: "Lint"
-      run: |
-        npm run lint
+      run: npm run lint
     - name: "Test"
-      run: |
-        npm run test
+      run: npm run test
     - name: "build"
       run: |
         npm run build
@@ -43,10 +28,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
-    - name: Set Node.js 16.x
+    - name: Set Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 16.x
+        node-version-file: .node-version
     - name: "Build action for test"
       run: |
         npm install
@@ -76,4 +61,5 @@ jobs:
       - name: Release flow
         uses: smartlyio/github-actions@release-action-node-v1
         with:
+          dry_run: ${{ github.event_name == 'pull_request' }}
           token: "${{ secrets.GITHUB_TOKEN }}"
